@@ -28,5 +28,6 @@
     "bugs": {
         "url": "https://github.com/ryolambert/monokai-neon/issues"
     },
-    "homepage": "https://github.com/ryolambert/monokai-neon#readme"
+    "homepage": "https://github.com/ryolambert/monokai-neon#readme",
+    "repository": "https://github.com/ryolambert/monokai-neon"
 }
