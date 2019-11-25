@@ -1,0 +1,27 @@
+{
+    "name": "monokai-neon",
+    "displayName": "Monokai Neon",
+    "author": "Ryo Lambert (i.e. James R. Lambert)",
+    "description": "Subtle variant on Monokai Vibrant with better contrast for dark and light working environments(i.e. ambient office lighting, hackers in dark rooms w/hoodies on, coding on out in the sun by the pool, etc.)",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.40.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "Monokai Neon",
+                "uiTheme": "vs-dark",
+                "path": "./themes/Monokai Neon-color-theme.json"
+            }
+        ]
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ryolambert/monokai-neon/issues"
+    },
+    "homepage": "https://github.com/ryolambert/monokai-neon#readme"
+}
