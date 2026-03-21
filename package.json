@@ -1,33 +1,81 @@
 {
-    "name": "monokai-neon",
-    "displayName": "Monokai Neon",
-    "author": "Ryo Lambert",
-    "publisher": "ryolambertdev",
-    "description": "Subtle variant on Monokai Vibrant with better contrast for dark and light working environments(i.e. ambient office lighting, hackers in dark rooms w/hoodies on, coding on out in the sun by the pool, etc.)",
-    "galleryBanner": {
-        "color": "#00ff0d",
-        "theme": "dark"
-    },
-    "version": "0.0.1",
-    "engines": {
-        "vscode": "^1.40.0"
-    },
-    "categories": [
-        "Themes"
-    ],
-    "contributes": {
-        "themes": [
-            {
-                "label": "Monokai Neon",
-                "uiTheme": "vs-dark",
-                "path": "./themes/Monokai Neon-color-theme.json"
-            }
-        ]
-    },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/ryolambert/monokai-neon/issues"
-    },
-    "homepage": "https://github.com/ryolambert/monokai-neon#readme",
-    "repository": "https://github.com/ryolambert/monokai-neon"
+  "name": "monokai-neon",
+  "displayName": "Monokai Neon",
+  "author": "Ryo Lambert",
+  "publisher": "ryolambertdev",
+  "description": "A source-built Monokai-inspired VS Code theme suite with contrast, storm, and OLED variants.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "vscode",
+    "theme",
+    "monokai",
+    "dark-theme",
+    "syntax-highlighting",
+    "open-vsx"
+  ],
+  "galleryBanner": {
+    "color": "#0f1217",
+    "theme": "dark"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "check": "node ./scripts/build.mjs --check",
+    "package": "node ./scripts/package.mjs"
+  },
+  "files": [
+    "themes/**/*.json",
+    "assets/**/*",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./theme": "./themes/Monokai Neon-color-theme.json",
+    "./theme/contrast": "./themes/Monokai Neon Contrast-color-theme.json",
+    "./theme/storm": "./themes/Monokai Neon Storm-color-theme.json",
+    "./theme/oled": "./themes/Monokai Neon OLED-color-theme.json",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Monokai Neon",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Monokai Neon-color-theme.json"
+      },
+      {
+        "label": "Monokai Neon Contrast",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Monokai Neon Contrast-color-theme.json"
+      },
+      {
+        "label": "Monokai Neon Storm",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Monokai Neon Storm-color-theme.json"
+      },
+      {
+        "label": "Monokai Neon OLED",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Monokai Neon OLED-color-theme.json"
+      }
+    ]
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryolambert/Monokai-Neon/issues"
+  },
+  "homepage": "https://github.com/ryolambert/Monokai-Neon#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryolambert/Monokai-Neon.git"
+  }
 }
