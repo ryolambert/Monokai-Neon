@@ -1,0 +1,81 @@
+name: Publish Extension
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Validate package metadata
+        run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')"
+
+      - name: Determine release eligibility
+        id: release
+        shell: bash
+        run: |
+          if ! git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+            echo "reason=No previous commit available; allowing publish" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          current_version=$(node -p "require('./package.json').version")
+          previous_version=$(git show HEAD^:package.json | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).version));")
+
+          package_changed=false
+          changelog_changed=false
+
+          if git diff --name-only HEAD^ HEAD -- package.json | grep -q '^package.json$'; then
+            package_changed=true
+          fi
+
+          if git diff --name-only HEAD^ HEAD -- CHANGELOG.md | grep -q '^CHANGELOG.md$'; then
+            changelog_changed=true
+          fi
+
+          if [ "$package_changed" = true ] && [ "$current_version" != "$previous_version" ] && [ "$changelog_changed" = true ]; then
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+            echo "reason=Version bumped from $previous_version to $current_version with changelog update" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "should_publish=false" >> "$GITHUB_OUTPUT"
+          echo "reason=Skipping publish: package version bump and CHANGELOG.md update are both required on merge to main" >> "$GITHUB_OUTPUT"
+
+      - name: Release check summary
+        run: echo "${{ steps.release.outputs.reason }}"
+
+      - name: Publish to Visual Studio Marketplace
+        if: steps.release.outputs.should_publish == 'true' && env.VSCE_PAT != ''
+        run: pnpm dlx @vscode/vsce publish -p "$VSCE_PAT"
+
+      - name: Publish to Open VSX Registry
+        if: steps.release.outputs.should_publish == 'true' && env.OVSX_PAT != ''
+        run: pnpm dlx ovsx publish -p "$OVSX_PAT"
