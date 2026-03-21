@@ -22,19 +22,21 @@ Install from Open VSX: <https://open-vsx.org/extension/ryolambertdev/monokai-neo
 
 ### Manual
 ```bash
-npm run package
+pnpm package
 code --install-extension monokai-neon-*.vsix
 ```
 
 ## Development
 
 ```bash
+pnpm install
+
 # Package extension locally
-npm run package
+pnpm package
 
 # Publish manually (requires tokens)
-npm run publish:vscode
-npm run publish:openvsx
+pnpm publish:vscode
+pnpm publish:openvsx
 ```
 
 ## Automatic publishing (GitHub Actions)

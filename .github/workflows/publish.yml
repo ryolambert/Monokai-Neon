@@ -28,6 +28,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Validate package metadata
         run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')"
 
@@ -69,8 +74,8 @@ jobs:
 
       - name: Publish to Visual Studio Marketplace
         if: steps.release.outputs.should_publish == 'true' && env.VSCE_PAT != ''
-        run: npx @vscode/vsce publish -p "$VSCE_PAT"
+        run: pnpm dlx @vscode/vsce publish -p "$VSCE_PAT"
 
       - name: Publish to Open VSX Registry
         if: steps.release.outputs.should_publish == 'true' && env.OVSX_PAT != ''
-        run: npx ovsx publish -p "$OVSX_PAT"
+        run: pnpm dlx ovsx publish -p "$OVSX_PAT"
