@@ -26,8 +26,24 @@
     },
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/ryolambert/monokai-neon/issues"
+        "url": "https://github.com/ryolambert/Monokai-Neon/issues"
     },
-    "homepage": "https://github.com/ryolambert/monokai-neon#readme",
-    "repository": "https://github.com/ryolambert/monokai-neon"
+    "homepage": "https://github.com/ryolambert/Monokai-Neon#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ryolambert/Monokai-Neon.git"
+    },
+    "icon": "assets/logo.png",
+    "keywords": [
+        "theme",
+        "monokai",
+        "dark theme",
+        "neon",
+        "syntax highlighting"
+    ],
+    "scripts": {
+        "package": "npx @vscode/vsce package",
+        "publish:vscode": "npx @vscode/vsce publish",
+        "publish:openvsx": "npx ovsx publish"
+    }
 }

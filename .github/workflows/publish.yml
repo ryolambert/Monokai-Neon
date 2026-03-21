@@ -1,0 +1,36 @@
+name: Publish Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate package metadata
+        run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')"
+
+      - name: Publish to Visual Studio Marketplace
+        if: env.VSCE_PAT != ''
+        run: npx @vscode/vsce publish -p "$VSCE_PAT"
+
+      - name: Publish to Open VSX Registry
+        if: env.OVSX_PAT != ''
+        run: npx ovsx publish -p "$OVSX_PAT"
