@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+      - copilot/**
+  pull_request:
+
+jobs:
+  build-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify generated assets
+        run: npm run check
+
+      - name: Build generated assets
+        run: npm run build
+
+      - name: Package VSIX
+        run: npm run package -- --allow-missing-repository
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: monokai-neon-${{ github.sha }}
+          path: '*.vsix'

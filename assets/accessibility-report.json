@@ -1,0 +1,26 @@
+{
+  "Monokai Neon": {
+    "editor foreground / editor background": 16.36,
+    "comment / editor background": 4.99,
+    "sidebar foreground / sidebar background": 11.29,
+    "status bar foreground / status bar background": 17.6
+  },
+  "Monokai Neon Contrast": {
+    "editor foreground / editor background": 18.11,
+    "comment / editor background": 7.37,
+    "sidebar foreground / sidebar background": 14.09,
+    "status bar foreground / status bar background": 19.2
+  },
+  "Monokai Neon Storm": {
+    "editor foreground / editor background": 15.39,
+    "comment / editor background": 5.15,
+    "sidebar foreground / sidebar background": 11.24,
+    "status bar foreground / status bar background": 17.01
+  },
+  "Monokai Neon OLED": {
+    "editor foreground / editor background": 19.63,
+    "comment / editor background": 7.37,
+    "sidebar foreground / sidebar background": 13.6,
+    "status bar foreground / status bar background": 19.4
+  }
+}
